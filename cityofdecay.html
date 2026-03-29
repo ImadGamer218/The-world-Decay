@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>City Of Decay - Ultra Horror PRO MAX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0; font-family: 'Orbitron', sans-serif; background: #000; color: white; overflow-x: hidden; cursor: crosshair;
+}
+/* NIEBLA PROFESIONAL */
+.fog, .fog2 {
+  position: fixed; width: 300%; height: 300%; background: url('https://i.imgur.com/L4fC2Ih.png') repeat; opacity:0.2; pointer-events:none; z-index:0;
+  animation: moveFog 200s linear infinite;
+}
+.fog2 { opacity:0.15; animation-duration: 250s; }
+@keyframes moveFog { 0% {transform: translate(0,0);} 100% {transform: translate(-70%,-70%);} }
+/* CABECERA */
+header { text-align:center; padding:30px; background: linear-gradient(to right, #000, #220000); box-shadow: inset 0 0 30px red; position:relative; z-index:2; }
+h1 { color:red; font-size:60px; text-shadow:0 0 25px red,0 0 60px darkred; }
+header p { font-size:20px; color:#ff5555; text-shadow:0 0 15px black; }
+/* MENU */
+nav { text-align:center; background:#111; padding:20px; box-shadow:0 0 25px #000; z-index:2; position:relative; }
+nav a { color:white; margin:15px; text-decoration:none; font-weight:bold; padding:12px 22px; border-radius:10px; position:relative; transition:all 0.4s ease; }
+nav a::before { content:''; position:absolute; width:0; height:100%; top:0; left:0; background: rgba(255,0,0,0.35); transition:0.4s; z-index:-1; border-radius:10px; }
+nav a:hover::before { width:100%; }
+nav a:hover { color:white; text-shadow:0 0 35px red; transform: scale(1.2); }
+/* HERO CON SHADER */
+.hero { text-align:center; padding:150px 30px; 
+  background-image: url('https://i.imgur.com/YourLatestImage.png');
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  box-shadow: inset 0 0 200px black; position:relative; z-index:1; filter: brightness(0.6) contrast(1.3) saturate(1.2); 
+  transition: all 1s ease;
+}
+.hero h2 { font-size:50px; color:#ff3333; text-shadow:0 0 45px red,0 0 90px darkred; animation: glowHero 2s infinite alternate; }
+@keyframes glowHero { 0%{text-shadow:0 0 25px red,0 0 50px darkred;} 100%{text-shadow:0 0 60px red,0 0 120px darkred;} }
+.hero p { font-size:22px; color:white; text-shadow:0 0 25px black; }
+/* SECCIONES */
+.section { padding:70px 30px; text-align:center; border-bottom:1px solid #222; position:relative; z-index:1; }
+.section h2 { font-size:40px; color:#ff3333; text-shadow:0 0 25px red; }
+.section p { max-width:700px; margin:auto; line-height:1.6; }
+.about-item { margin:40px auto; text-align:left; max-width:700px; border-left:4px solid red; padding-left:20px; margin-bottom:30px; transition:0.5s; box-shadow:0 0 25px #ff0000 inset; }
+.about-item:hover { transform: scale(1.03); box-shadow:0 0 50px #ff0000 inset; }
+/* BOTONES */
+.btn { background: linear-gradient(45deg,#ff0000,#8b0000); padding:18px 35px; border-radius:12px; color:white; text-decoration:none; font-size:22px; transition:0.4s; display:inline-block; box-shadow:0 0 25px red,0 0 50px darkred inset; }
+.btn:hover { background: linear-gradient(45deg,#8b0000,#ff0000); transform: scale(1.3); box-shadow:0 0 50px red,0 0 100px darkred inset; }
+/* COUNTDOWN */
+#countdown { font-size:45px; color:red; text-shadow:0 0 40px red; animation: pulse 2s infinite; }
+@keyframes pulse {0%{text-shadow:0 0 15px red,0 0 40px darkred;}50%{text-shadow:0 0 60px red,0 0 120px darkred;}100%{text-shadow:0 0 15px red,0 0 40px darkred;}}
+/* FOOTER */
+footer { text-align:center; padding:30px; background:black; color:gray; text-shadow:0 0 10px red; }
+/* OVERLAY */
+.overlay { position: fixed; width: 100%; height:100%; background:black; color:red; display:none; justify-content:center; align-items:center; font-size:50px; z-index:999; flex-direction:column; text-shadow:0 0 50px red; animation: overlayBlink 1s infinite; }
+@keyframes overlayBlink { 0%{opacity:1;}50%{opacity:0.7;}100%{opacity:1;} }
+</style>
+</head>
+<body>
+
+<div class="fog"></div>
+<div class="fog2"></div>
+<div class="overlay" id="overlay">CONNECTING...</div>
+
+<!-- SONIDO AMBIENTE -->
+<audio id="ambientSound" loop autoplay>
+  <source src="https://www.fesliyanstudios.com/play-mp3/6436" type="audio/mpeg">
+</audio>
+
+<header>
+<h1>City Of Decay</h1>
+<p>Survive the chaos... or become part of it</p>
+</header>
+
+<nav>
+<a href="#about" class="menu">About</a>
+<a href="#chapters" class="menu">Chapters</a>
+<a href="#channel" class="menu">Imad Gamer Channel</a>
+<a href="#count" class="menu">Time for Chapter</a>
+<a href="#play" class="menu">Play</a>
+</nav>
+
+<div class="hero">
+<h2>A destroyed world awaits you</h2>
+<p>Explore, survive, and uncover the truth...</p>
+</div>
+
+<div class="section" id="about">
+<h2>🧟 About</h2>
+<div class="about-item">
+<h3>Who is 5007?</h3>
+<p>5007 is a prototype, a GIANT AND STRONGEST spider… it is said that in chapter 7 it will be seen for the first time along with other experiments.</p>
+</div>
+<div class="about-item">
+<h3>What exactly happened in Decay?</h3>
+<p>In Decay, a nuclear bomb sent by Mark passed through the castle where everything got destroyed, and you must fix everything and save the city. It is your only objective. DO NOT FAIL.</p>
+</div>
+<div class="about-item">
+<h3>The Entities</h3>
+<p>
+Experiment: 1460 Name Dudge<br>
+Experiment: ??? Name: Varnook<br>
+Experiment: 8792 Name: ???<br>
+Experiment: 2007 Name: Darktion<br>
+Experiment: ??? Name: Scortion<br>
+Soon the next ones!
+</p>
+</div>
+</div>
+
+<div class="section" id="chapters">
+<h2>📖 Chapters</h2>
+<p>Chapter 1 - The Beginning</p>
+<p>Chapter 2 - The Infection</p>
+<p>Chapter 3 - The Darkness</p>
+<p>Chapter 4 - The Chaos</p>
+<p>Chapter 5 - The End... or is it?</p>
+</div>
+
+<div class="section" id="channel">
+<h2>🎬 Imad Gamer Channel</h2>
+<p>Dive into the official City Of Decay universe. Watch exclusive trailers, experience original soundtracks, uncover hidden secrets, and gain early access to all upcoming updates. Stay ahead… here, you won’t miss a single terrifying moment.</p>
+<br>
+<a class="btn" id="visitChannel" href="https://www.youtube.com/@ImadGamer13" target="_blank">VISIT CHANNEL</a>
+</div>
+
+<div class="section" id="count">
+<h2>⏳ Time for Chapter 6</h2>
+<p id="countdown"></p>
+</div>
+
+<div class="section" id="play">
+<h2>🎮 Play Now</h2>
+<a class="btn" id="playBtn">ENTER THE GAME</a>
+</div>
+
+<footer>
+<p>© 2026 Imad Gamer - City Of Decay</p>
+</footer>
+
+<script>
+/* SONIDOS */
+let ambient = document.getElementById("ambientSound"); ambient.volume=0.4;
+let menuSound = new Audio("https://www.soundjay.com/horror/sounds/horror-ambience-01.mp3"); menuSound.volume=0.25;
+let clickSound = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3"); clickSound.volume=0.5;
+
+/* MENÚ */
+document.querySelectorAll('.menu').forEach(item=>{
+  item.addEventListener('mouseenter',()=>{ menuSound.play(); });
+  item.addEventListener('click',()=>{ clickSound.play(); });
+});
+
+/* PLAY */
+document.getElementById('playBtn').addEventListener('click',()=>{
+  let overlay = document.getElementById("overlay");
+  overlay.style.display="flex"; overlay.innerHTML="CONNECTING TO SERVER...";
+  let playSound=new Audio("https://www.soundjay.com/horror/sounds/horror-ambience-02.mp3"); playSound.volume=0.5; playSound.play();
+  setTimeout(()=>{overlay.innerHTML="AUTHENTICATING PLAYER..."; playSound.play();},1000);
+  setTimeout(()=>{overlay.innerHTML="LOADING WORLD..."; playSound.play();},2000);
+  setTimeout(()=>{window.open("https://www.roblox.com/es/games/97378006075152/City-Of-Decay-UPDATE-15","_blank");},3200);
+});
+
+/* CANAL */
+document.getElementById('visitChannel').addEventListener('click',()=>{
+  let sound=new Audio("https://www.soundjay.com/horror/sounds/horror-ambience-03.mp3"); sound.volume=0.5; sound.play();
+});
+
+/* COUNTDOWN */
+let countdown=document.getElementById("countdown");
+let targetDate=new Date("June 24, 2026 17:30:00").getTime();
+let alarmPlayed=false;
+setInterval(()=>{
+  let now=new Date().getTime();
+  let distance=targetDate-now;
+  let days=Math.floor(distance/(1000*60*60*24));
+  let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+  let seconds=Math.floor((distance%(1000*60))/1000);
+  countdown.innerHTML=distance>0?`${days}d ${hours}h ${minutes}m ${seconds}s`:"CHAPTER 6 IS OUT NOW!";
+  if(distance<0 && !alarmPlayed){ let alarm=new Audio("https://www.soundjay.com/misc/sounds/alarm-clock-01.mp3"); alarm.volume=0.8; alarm.play(); alarmPlayed=true; }
+},1000);
+
+/* NIEBLA REACTIVA */
+document.addEventListener('mousemove', e=>{
+  document.querySelector('.fog').style.transform=`translate(${e.clientX/300}px,${e.clientY/300}px)`;
+  document.querySelector('.fog2').style.transform=`translate(${e.clientX/600}px,${e.clientY/600}px)`;
+});
+
+/* PROTECCIÓN */
+document.addEventListener('contextmenu', e=>{alert("Access Denied – Not Allowed"); e.preventDefault();});
+document.addEventListener('keydown', e=>{if(e.key==="F12"||(e.ctrlKey && e.shiftKey && e.key==="I")||(e.ctrlKey && e.key==="U")){alert("Access Denied – Not Allowed"); e.preventDefault();}});
+</script>
+
+</body>
+</html>
